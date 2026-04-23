@@ -25,4 +25,8 @@ const studentSchema = new mongoose.Schema({
 });     
 
 
-module.exports = mongoose.model('Student', studentSchema);
+// Purana code: 
+// module.exports = mongoose.model('Student', studentSchema);
+
+// Naya code (Safe way):
+module.exports = mongoose.models.Student || mongoose.model('Student', studentSchema);
