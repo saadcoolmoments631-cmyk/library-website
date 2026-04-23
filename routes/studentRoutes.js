@@ -3,7 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const studentModel = require('../models/student');
+const studentModel = require('../models/Student');
 const Issue = require('../models/Issue');
 
 const { isStudentLoggedIn } = require('../middleware/isStudentLogin'); // ✅ FIXED
