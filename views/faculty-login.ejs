@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Faculty Login</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #0f172a;
+    }
+
+    .box {
+      width: 350px;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .box h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #0f172a;
+    }
+
+    .box input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+    }
+
+    .box input:focus {
+      border-color: #2563eb;
+    }
+
+    .box button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 15px;
+      background: #2563eb;
+      border: none;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .box button:hover {
+      background: #1d4ed8;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="box">
+    <h2>Faculty Login</h2>
+
+    <form action="/faculty/login" method="POST">
+      <input type="email" name="email" placeholder="Email" required />
+      <input type="password" name="password" placeholder="Password" required />
+      <button type="submit">Login</button>
+    </form>
+
+  </div>
+
+</body>
+</html>

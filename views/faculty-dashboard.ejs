@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Faculty Dashboard | LMS</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+:root {
+  --primary: #6366f1;
+  --primary-hover: #4f46e5;
+  --dark: #0f172a;
+  --bg: #f8fafc;
+  --card-bg: #ffffff;
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --border: #e2e8f0;
+  --danger: #ef4444;
+  --success: #22c55e;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  display: flex;
+  height: 100vh;
+  background: var(--bg);
+  color: var(--text-main);
+  overflow: hidden;
+}
+
+/* --- SIDEBAR --- */
+.sidebar {
+  width: 280px;
+  background: var(--dark);
+  color: white;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar h2 {
+  text-align: center;
+  color: white;
+  margin-bottom: 40px;
+  font-weight: 600;
+  font-size: 24px;
+  letter-spacing: 2px;
+  border-bottom: 2px solid var(--primary);
+  padding-bottom: 10px;
+}
+
+.nav-btn {
+  padding: 14px 18px;
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  transition: all 0.3s ease;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.nav-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
+}
+
+.nav-btn.active {
+  background: var(--primary);
+  color: white;
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+}
+
+.logout-link {
+  margin-top: auto;
+  color: var(--danger);
+  text-decoration: none;
+  padding: 12px;
+  border: 1.5px solid var(--danger);
+  text-align: center;
+  border-radius: 10px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.logout-link:hover {
+  background: var(--danger);
+  color: white;
+}
+
+/* --- MAIN --- */
+.main {
+  flex: 1;
+  padding: 40px;
+  overflow-y: auto;
+}
+
+.section {
+  display: none;
+  animation: fadeIn 0.4s ease-out;
+}
+
+.section.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- CARDS --- */
+.card {
+  background: var(--card-bg);
+  padding: 28px;
+  border-radius: 16px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  border: 1px solid var(--border);
+}
+
+.card h3 {
+  margin-bottom: 20px;
+  color: var(--dark);
+  font-size: 20px;
+  font-weight: 600;
+}
+
+/* --- FORMS --- */
+input, select {
+  width: 100%;
+  padding: 12px 16px;
+  margin: 10px 0;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  outline: none;
+  font-size: 14px;
+}
+
+input:focus { border-color: var(--primary); }
+
+button {
+  padding: 12px 28px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover { background: var(--primary-hover); }
+
+/* --- TABLE PERFECTED --- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th {
+  text-align: left;
+  padding: 15px;
+  background: #f8fafc;
+  color: var(--text-muted);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 2px solid var(--border);
+}
+
+td {
+  padding: 15px;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+  color: var(--text-main);
+}
+
+tr:hover { background: #f9fafb; }
+
+/* --- ACTIONS BUTTONS --- */
+.edit-btn, .delete-btn {
+  display: inline-block;
+  padding: 6px 15px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  margin-right: 5px;
+  transition: 0.2s;
+}
+
+.edit-btn {
+  color: var(--primary);
+  background: rgba(99, 102, 241, 0.1);
+}
+
+.edit-btn:hover { background: var(--primary); color: white; }
+
+.delete-btn {
+  color: var(--danger);
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.delete-btn:hover { background: var(--danger); color: white; }
+
+</style>
+</head>
+<body>
+
+<div class="sidebar">
+  <h2>Librarian Portal</h2>
+  <button class="nav-btn active" onclick="tab('books', this)">Books</button>
+  <button class="nav-btn" onclick="tab('students', this)">Students</button>
+  <button class="nav-btn" onclick="tab('issue', this)">Issue Book</button>
+  <a href="/faculty/logout" class="logout-link">Logout</a>
+</div>
+
+<div class="main">
+  <section id="books" class="section active">
+    <div class="card">
+      <h3>Add Book</h3>
+      <form action="/faculty/add-book" method="POST">
+        <input type="text" name="title" placeholder="Title">
+        <input type="text" name="author" placeholder="Author">
+        <input type="text" name="isbn" placeholder="ISBN">
+        <input type="number" name="qty" placeholder="Quantity">
+        <button type="submit">Add Book</button>
+      </form>
+    </div>
+
+    <div class="card">
+      <h3>All Books</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Qty</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% books.forEach(b => { %>
+          <tr>
+            <td><%= b.title %></td>
+            <td><%= b.author %></td>
+            <td><%= b.availableQty %></td>
+            <td>
+              <a href="/faculty/edit-book/<%= b._id %>" class="edit-btn">Edit</a>
+              <a href="/faculty/delete-book/<%= b._id %>" class="delete-btn">Delete</a>
+            </td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="students" class="section">
+    <div class="card">
+      <h3>Students List</h3>
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>ID</th>
+        </tr>
+        <% students.forEach(s => { %>
+        <tr>
+          <td><%= s.name %></td>
+          <td><%= s.email %></td>
+          <td><%= s.studentID %></td>
+        </tr>
+        <% }) %>
+      </table>
+    </div>
+  </section>
+
+  <section id="issue" class="section">
+    <div class="card">
+      <h3>Issue a Book</h3>
+      <form action="/faculty/issue-book" method="POST">
+        <select name="studentId">
+          <option disabled selected>Select Student</option>
+          <% students.forEach(s => { %>
+            <option value="<%= s._id %>"><%= s.name %></option>
+          <% }) %>
+        </select>
+        <select name="bookId">
+          <option disabled selected>Select Book</option>
+          <% books.forEach(b => { %>
+            <option value="<%= b._id %>"><%= b.title %></option>
+          <% }) %>
+        </select>
+        <button type="submit">Issue Book</button>
+      </form>
+    </div>
+  </section>
+</div>
+
+<script>
+function tab(id, btn){
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+
+</body>
+</html>
+
