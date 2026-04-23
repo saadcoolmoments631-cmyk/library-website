@@ -6,8 +6,7 @@ const jwt = require('jsonwebtoken');
 const studentModel = require('../models/Student');
 const Issue = require('../models/Issue');
 
-const { isStudentLoggedIn } = require('../middleware/isStudentLogin'); // ✅ FIXED
-
+const { isStudentLoggedIn } = require('../middleware/isStudentLoggedIn'); // ✅ FIXED
 
 // ================= REGISTER =================
 router.get('/register', (req, res) => {

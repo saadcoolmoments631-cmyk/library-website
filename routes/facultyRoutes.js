@@ -6,7 +6,7 @@ const Book = require('../models/Book');
 const Student = require('../models/student');
 const facultyModel = require('../models/Faculty');
 const Issue = require('../models/Issue');
-const { isFacultyLoggedIn } = require('../middleware/isFacultyLogin');
+const { isFacultyLoggedIn } = require('../middleware/isFacultyLoggedIn');
 
 
 

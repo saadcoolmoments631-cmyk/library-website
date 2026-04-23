@@ -8,8 +8,8 @@ const studentRoutes = require('./routes/studentRoutes');
 const facultyRoutes = require('./routes/facultyRoutes');
 
 // Middleware
-const { isStudentLoggedIn } = require('./middleware/isStudentLogin');
-const { isFacultyLoggedIn } = require('./middleware/isFacultyLogin');
+const { isStudentLoggedIn } = require('./middleware/isStudentLoggedIn');
+const { isFacultyLoggedIn } = require('./middleware/isFacultyLoggedIn');
 
 dotenv.config();
 const app = express();
