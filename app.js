@@ -26,6 +26,14 @@ app.use('/student', studentRoutes);
 app.use('/faculty', facultyRoutes);
 
 
+app.get('/', (req, res) => {
+  res.redirect('/faculty/login');
+});
+
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`🚀 Server on http://localhost:${port}`));
+
+
+
+
